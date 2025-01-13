@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script> -->
+    
+
+    
+    <script type="module">
+        // Créer la scène
+        var scene = new THREE.Scene();
+    
+        // Créer le rendu
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xffffff, 1); // Couleur d'arrière-plan
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true; // Activer les ombres
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Type d'ombre doux
+        document.body.appendChild(renderer.domElement); // Ajouter le rendu au body
+    
+        // Créer la caméra
+        var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
+        camera.position.set(6, 3, 9); // Positionner la caméra
+    
+        // Créer un éclairage ambiant
+        var light = new THREE.AmbientLight(0x404040, 10); // Lumière ambiante
+        scene.add(light);
+    
+        // Ajouter une lumière directionnelle
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(2, 2, 10).normalize();
+        directionalLight.castShadow = true; // Activer l'ombre pour cette lumière
+        scene.add(directionalLight);
+    
+        // Créer le chargeur pour charger les fichiers .gltf
+        var loader = new THREE.GLTFLoader(); // Utiliser la GLTFLoader depuis l'espace global
+    
+        // Charger ton modèle .gltf
+        loader.load('SkodaSuperb.glb', function (gltf) {
+            var model = gltf.scene;
+            model.scale.set(1, 1, 1); // Mettre à l'échelle le modèle
+            model.position.set(8, 0, 14 ); // Positionner le modèle
+            model.traverse(function(child) {
+                if (child.isMesh) {
+                    child.castShadow = true;  // Activer la projection d'ombre pour les objets du modèle
+                    child.receiveShadow = true;  // Activer la réception d'ombre pour les objets
+                }
+            });
+            scene.add(model);
+        }, undefined, function (error) {
+            console.error(error); // Gérer les erreurs de chargement
+        });
+    
+        // Ajouter un sol pour recevoir l'ombre
+        var groundGeometry = new THREE.PlaneGeometry(2000, 2000);
+        var groundMaterial = new THREE.ShadowMaterial({ opacity: 0 });
+        var ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI/10 ;
+        ground.position.y = 10;
+        ground.receiveShadow = true; // Le sol reçoit l'ombre
+        scene.add(ground);
+    
+        // Ajouter le contrôle de la caméra avec OrbitControls
+        var controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; // Activation de l'amortissement pour un mouvement fluide
+        controls.dampingFactor = 0.25; // Facteur de ralentissement
+        controls.screenSpacePanning = false; // Désactiver le panoramique dans l'espace écran
+    
+        // Fonction d'animation pour la scène (sans rotation de la scène, seulement celle du modèle)
+        function animate() {
+            requestAnimationFrame(animate);
+    
+            // Mettre à jour les contrôles
+            controls.update(); // Requis pour activer l'amortissement
+    
+            // Rendu de la scène
+            renderer.render(scene, camera);
+        }
+    
+        // Lancer l'animation
+        animate();
+    
+        // Gérer le redimensionnement de la fenêtre
+        window.addEventListener('resize', function() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+    
+    </body>
+</html>
+
+

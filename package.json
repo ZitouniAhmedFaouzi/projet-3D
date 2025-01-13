@@ -1,0 +1,58 @@
+{
+    "name": "rent-car",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.7.2",
+        "@mediapipe/tasks-vision": "^0.10.20",
+        "@react-three/drei": "^9.120.5",
+        "@react-three/fiber": "^8.17.10",
+        "@testing-library/jest-dom": "^5.17.0",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "@types/three": "^0.171.0",
+        "gsap": "^3.12.5",
+        "jquery": "^3.7.1",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^7.1.1",
+        "react-scripts": "5.0.1",
+        "react-slider": "^2.0.6",
+        "three": "^0.172.0",
+        "three-stdlib": "^2.35.2",
+        "vite": "^6.0.6",
+        "web-vitals": "^2.1.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "dev": "react-scripts start",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "homepage": "/rent-car",
+    "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+        "gh-pages": "^6.2.0"
+    }
+}

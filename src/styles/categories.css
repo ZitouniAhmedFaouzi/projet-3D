@@ -1,0 +1,239 @@
+/* Styles communs pour toutes les pages de catégories */
+
+.categories-container {
+    padding: 20px;
+    background-color: #f4f4f4; /* Couleur de fond commune */
+    color: #333; /* Couleur du texte */
+    box-sizing: border-box; /* Inclut le padding et les bordures dans la taille totale */
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Grille responsive */
+    gap: 20px; /* Espacement entre les cartes */
+    padding: 20px; /* Padding autour de la grille */
+    justify-items: center; /* Centrer les cartes horizontalement */
+    box-sizing: border-box;
+}
+
+.car-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajuster le padding pour centrer l'image dans le conteneur */
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+/* Style de la carte */
+.card {
+    width: 100%;
+    max-width: 300px; /* Largeur maximale pour maintenir une bonne lisibilité */
+    height: var(--card-height, 250px); /* Hauteur ajustable via la variable CSS */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    padding: 15px; /* Padding ajusté pour un meilleur espacement */
+    perspective: 600px;
+    margin: 0 auto;
+    border-radius: 5px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    box-sizing: border-box;
+}
+
+/* Style pour l'image */
+.cover-image {
+    width: 100%; /* Utilise toute la largeur disponible */
+    height: auto; /* Ajuste automatiquement la hauteur pour conserver les proportions */
+    object-fit: cover; /* Remplir le conteneur sans déformation */
+    object-position: center; /* Centrer l'image à l'intérieur du conteneur */
+    border-radius: 5px;
+    display: block;
+}
+
+/* Wrapper avec effets d'animation */
+.wrapper {
+    transition: all 0.5s;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    border-radius: 5px;
+}
+
+.card:hover .wrapper {
+    transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+    box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    border-radius: 5px;
+}
+
+/* Effets avant et après */
+.wrapper::before,
+.wrapper::after {
+    content: "";
+    opacity: 0;
+    width: 100%;
+    height: 80px;
+    transition: all 0.5s;
+    position: absolute;
+    left: 0;
+    border-radius: 5px;
+}
+
+.wrapper::before {
+    top: 0;
+    height: 100%;
+    background-image: linear-gradient(
+        to top,
+        transparent 46%,
+        rgba(12, 13, 19, 0.5) 68%,
+        rgba(12, 13, 19) 97%
+    );
+    border-radius: 5px;
+}
+
+.wrapper::after {
+    bottom: 0;
+    opacity: 1;
+    background-image: linear-gradient(
+        to bottom,
+        transparent 46%,
+        rgba(12, 13, 19, 0.5) 68%,
+        rgba(12, 13, 19) 97%
+    );
+    border-radius: 5px;
+}
+
+.card:hover .wrapper::before,
+.card:hover .wrapper::after {
+    opacity: 1;
+}
+
+.card:hover .wrapper::after {
+    height: 300px;
+}
+
+/* Titre de la carte */
+.title {
+    width: 100%;
+    transition: transform 0.5s;
+}
+.description {
+  white-space: pre-wrap; /* Gère les sauts de ligne */
+  line-height: 1.5; /* Espacement entre les lignes */
+}
+
+
+.card:hover .title {
+    transform: translate3d(0%, -50px, 100px);
+}
+
+/* Image secondaire (transition) */
+.character {
+    width: 100%;
+    opacity: 0;
+    transition: all 0.5s;
+    position: absolute;
+    z-index: -1;
+}
+
+.card:hover .character {
+    opacity: 1;
+    transform: translate3d(0%, -30%, 100px);
+}
+
+/* Prix de la voiture */
+.car-price {
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* Lien pour voir les détails */
+.details-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.details-link:hover {
+    text-decoration: underline;
+}
+
+/* Styles spécifiques aux titres de catégories */
+
+.category-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.category-description {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styles pour la barre de navigation */
+.navbar {
+    background-color: #333;
+    padding: 10px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    display: inline-block;
+}
+
+.nav-links a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+
+/* Media queries pour des ajustements responsifs */
+@media (max-width: 768px) {
+    .categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Grille avec des colonnes plus petites */
+    }
+
+    .car-card {
+        padding: 10px; /* Moins de padding sur les écrans moyens */
+    }
+
+    .card {
+        max-width: 250px; /* Largeur réduite pour les petits écrans */
+    }
+}
+
+@media (max-width: 480px) {
+    .categories-grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    }
+
+    .card {
+        max-width: 200px; /* Réduction supplémentaire de la taille */
+    }
+
+    .car-card {
+        padding: 8px; /* Padding minimum pour les très petits écrans */
+    }
+}

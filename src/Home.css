@@ -1,0 +1,428 @@
+/* === Styles Globaux === */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    color: #333;
+}
+
+
+/* === Barre de Navigation === */
+
+.navbar {
+    background-color: #1b1b2f;
+    padding: 15px;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    font-size: 1.2em;
+}
+
+.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: #f9a826;
+}
+
+
+/* === Section d'Introduction === */
+
+.home {
+    padding: 40px;
+    text-align: center;
+    background-color: #f3f3f3;
+}
+
+.home h1 {
+    color: #1b1b2f;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.home h2 {
+    color: #333;
+    font-size: 1.8em;
+    margin-top: 10px;
+}
+
+.home p {
+    font-size: 1.2em;
+    color: #666;
+    line-height: 1.6em;
+}
+
+
+/* === Section des Modèles de Voitures === */
+
+.car-showcase {
+    padding: 40px;
+    background-color: #ffffff;
+    text-align: center;
+    position: relative;
+}
+
+.car-showcase h2 {
+    color: #1b1b2f;
+    font-size: 2em;
+    margin-bottom: 30px;
+}
+
+
+/* Liste des voitures (défilement horizontal) */
+
+.car-list {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 20px;
+    margin: 0 20px;
+}
+
+
+/* Template de Voiture */
+
+.car-template {
+    background-color: #f3f3f3;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Augmenter la largeur de la carte */
+    min-width: 300px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.car-template:hover {
+    transform: scale(1.05);
+}
+
+.car-image {
+    width: 100%;
+    height: 200px; /* Ajuster la hauteur de l'image */
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.cover-image {
+    width: 100%;
+    height: 200px; /* Ajuster la hauteur de l'image */
+    object-fit: cover; /* Garantir que l'image est bien découpée */
+    border-radius: 5px;
+}
+
+.car-template h3 {
+    color: #1b1b2f;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.car-template p {
+    color: #666;
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+.wrapper {
+    transition: all 0.5s;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    border-radius: 5px;
+}
+
+.car-template:hover .wrapper {
+    transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+    box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    border-radius: 5px;
+}
+
+.wrapper::before,
+.wrapper::after {
+    content: "";
+    opacity: 0;
+    width: 100%;
+    height: 80px;
+    transition: all 0.5s;
+    position: absolute;
+    left: 0;
+    border-radius: 5px;
+}
+
+.wrapper::before {
+    top: 0;
+    height: 100%;
+    background-image: linear-gradient(
+        to top,
+        transparent 46%,
+        rgba(12, 13, 19, 0.5) 68%,
+        rgba(12, 13, 19) 97%
+    );
+    border-radius: 5px;
+}
+
+.wrapper::after {
+    bottom: 0;
+    opacity: 1;
+    background-image: linear-gradient(
+        to bottom,
+        transparent 46%,
+        rgba(12, 13, 19, 0.5) 68%,
+        rgba(12, 13, 19) 97%
+    );
+    border-radius: 5px;
+}
+
+.car-template:hover .wrapper::before,
+.wrapper::after {
+    opacity: 1;
+}
+
+.car-template:hover::after {
+    height: 120px;
+}
+
+.character {
+    width: 100%;
+    opacity: 0;
+    transition: all 0.5s;
+    position: absolute;
+    z-index: -1;
+}
+
+.car-template:hover .character {
+    opacity: 1;
+    transform: translate3d(0%, -30%, 100px);
+}
+
+.title {
+    width: 100%;
+    transition: transform 0.5s;
+}
+
+.car-template:hover .title {
+    transform: translate3d(0%, -50px, 100px);
+}
+
+
+
+
+
+/* Styles pour les Templates Vides */
+
+.empty-template {
+    background-color: #e0e0e0;
+    border: 1px dashed #ccc;
+    min-width: 250px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    color: #888;
+}
+
+
+/* Boutons de Défilement */
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    color: #1b1b2f;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.scroll-left {
+    left: 10px;
+}
+
+.scroll-right {
+    right: 10px;
+}
+
+.scroll-btn:hover {
+    color: #f9a826;
+}
+
+
+/* === Carte Flottante VR === */
+
+.card-flottante {
+    position: fixed;
+    top: 0;
+    right: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+    height: 220px;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1000;
+    animation: moveCard 2s ease-in-out infinite alternate;
+    overflow: hidden;
+}
+
+.images-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.card-image {
+    width: 45%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.card-flottante h3 {
+    color: #1b1b2f;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.card-flottante p {
+    color: #666;
+    font-size: 0.9em;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+
+/* Animation pour la Carte */
+
+@keyframes moveCard {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(10px);
+    }
+}
+
+
+/* === Bouton de Réservation === */
+
+.car-template button {
+    background-color: #f9a826;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.car-template button:hover {
+    background-color: #1b1b2f;
+}
+
+/* Style de la section principale */
+#Showroom {
+    position: relative;
+    background: url('./images/showroom.png') no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Ajoute un léger espace pour éviter que le contenu touche les bords */
+}
+
+/* Conteneur showroom-content modernisé */
+.showroom-content {
+    background: rgba(0, 0, 0, 0.6); /* Fond semi-transparent pour un effet moderne */
+    border-radius: 15px; /* Coins arrondis */
+    padding: 30px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Ombre portée */
+    text-align: center;
+    max-width: 600px;
+    color: rgba(255, 255, 255, 0.8); /* Texte légèrement transparent (alpha à 0.8) */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.showroom-content:hover {
+    transform: translateY(-10px); /* Soulève le conteneur au survol */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5); /* Accentue l'ombre au survol */
+}
+
+/* Description modernisée */
+.description {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* Bouton modernisé */
+.discover-btn {
+    background: linear-gradient(45deg, #ff6f61, #e84118); /* Gradient pour un look premium */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.discover-btn:hover {
+    background: linear-gradient(45deg, #e84118, #ff6f61); /* Inversion du gradient au survol */
+    transform: scale(1.1); /* Zoom léger au survol */
+}
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    display: flex;              /* Utilisation de flexbox */
+    justify-content: center;    /* Centrer horizontalement */
+    align-items: center;        /* Centrer verticalement */
+    flex-direction: column;     /* Pour disposer les éléments verticalement */
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;  /* Centrer les icônes horizontalement */
+    margin-top: 10px;         /* Espace entre le texte et les icônes */
+}
+
+.social-icons a {
+    color: #ffffff;
+    font-size: 24px;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #ffa07a;
+}
+footer h2, footer p {
+    margin: 10px 0; /* Ajouter un espacement autour du titre et du paragraphe */
+}
